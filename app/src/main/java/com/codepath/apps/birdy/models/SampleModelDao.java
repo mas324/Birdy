@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate.models;
+package com.codepath.apps.birdy.models;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;

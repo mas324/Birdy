@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.birdy;
 
 import android.app.Application;
 import android.arch.persistence.room.Room;
@@ -11,11 +11,11 @@ import com.facebook.stetho.Stetho;
  * including the image cache in memory and on disk. This also adds a singleton
  * for accessing the relevant rest client.
  *
- *     BirdyClient client = BirdyApplication.getRestClient(Context context);
+ *     BirdyClient client = BirdyApp.getRestClient(Context context);
  *     // use client to send requests to API
  *
  */
-public class BirdyApplication extends Application {
+public class BirdyApp extends Application {
 
     MyDatabase myDatabase;
 

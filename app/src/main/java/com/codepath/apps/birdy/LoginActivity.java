@@ -1,4 +1,4 @@
-package com.codepath.apps.restclienttemplate;
+package com.codepath.apps.birdy;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -6,8 +6,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
-import com.codepath.apps.restclienttemplate.models.SampleModel;
-import com.codepath.apps.restclienttemplate.models.SampleModelDao;
+import com.codepath.apps.birdy.models.SampleModel;
+import com.codepath.apps.birdy.models.SampleModelDao;
 import com.codepath.oauth.OAuthLoginActionBarActivity;
 
 public class LoginActivity extends OAuthLoginActionBarActivity<BirdyClient> {
@@ -30,7 +30,7 @@ public class LoginActivity extends OAuthLoginActionBarActivity<BirdyClient> {
         final SampleModel sampleModel = new SampleModel();
         sampleModel.setName("CodePath");
 
-        sampleModelDao = ((BirdyApplication) getApplicationContext()).getMyDatabase().sampleModelDao();
+        sampleModelDao = ((BirdyApp) getApplicationContext()).getMyDatabase().sampleModelDao();
 
         task.execute(sampleModel);
     }
