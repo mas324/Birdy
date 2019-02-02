@@ -1,10 +1,10 @@
 package com.codepath.apps.birdy;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Toast;
 
 import com.codepath.apps.birdy.models.SampleModel;
 import com.codepath.apps.birdy.models.SampleModelDao;
@@ -47,9 +47,8 @@ public class LoginActivity extends OAuthLoginActionBarActivity<BirdyClient> {
     // i.e Display application "homepage"
     @Override
     public void onLoginSuccess() {
-        Toast.makeText(this, "Success!", Toast.LENGTH_SHORT).show();
-        // Intent i = new Intent(this, PhotosActivity.class);
-        // startActivity(i);
+        Intent i = new Intent(this, TimelineActivity.class);
+        startActivity(i);
     }
 
     // OAuth authentication flow failed, handle the error
