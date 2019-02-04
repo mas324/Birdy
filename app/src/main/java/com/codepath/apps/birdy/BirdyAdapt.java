@@ -14,14 +14,27 @@ import com.codepath.apps.birdy.models.Tweet;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class BirdyAdapt extends RecyclerView.Adapter<BirdyAdapt.ViewHolder> {
 
     private Context context;
     private List<Tweet> tweets;
 
-    public BirdyAdapt(Context context, List<Tweet> tweets) {
+    BirdyAdapt(Context context, List<Tweet> tweets) {
         this.context = context;
         this.tweets = tweets;
+    }
+
+    public void clear() {
+        tweets.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<Tweet> tweets) {
+        this.tweets.addAll(tweets);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -46,19 +59,20 @@ public class BirdyAdapt extends RecyclerView.Adapter<BirdyAdapt.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView profilePic;
-        private TextView name;
-        private TextView tweet;
-        private TextView handle;
-        private TextView time;
+        @BindView(R.id.profile_pic)
+        ImageView profilePic;
+        @BindView(R.id.name)
+        TextView name;
+        @BindView(R.id.tweet)
+        TextView tweet;
+        @BindView(R.id.handle)
+        TextView handle;
+        @BindView(R.id.time)
+        TextView time;
 
         ViewHolder(View view) {
             super(view);
-            profilePic = view.findViewById(R.id.profile_pic);
-            name = view.findViewById(R.id.name);
-            tweet = view.findViewById(R.id.tweet);
-            handle = view.findViewById(R.id.handle);
-            time = view.findViewById(R.id.time);
+            ButterKnife.bind(this, view);
         }
     }
 }
