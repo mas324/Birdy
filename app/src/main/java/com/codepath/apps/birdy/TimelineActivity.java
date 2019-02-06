@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.codepath.apps.birdy.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -29,6 +30,7 @@ public class TimelineActivity extends Activity {
     private BirdyClient client;
     private BirdyAdapt adapt;
     private List<Tweet> tweets;
+    private EndlessScrollListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +40,23 @@ public class TimelineActivity extends Activity {
         client = BirdyApp.getRestClient(this);
         tweets = new ArrayList<>();
         adapt = new BirdyAdapt(this, tweets);
-        viewTweet.setLayoutManager(new LinearLayoutManager(this));
+        final LinearLayoutManager layout = new LinearLayoutManager(this);
+        viewTweet.setLayoutManager(layout);
+        listener = new EndlessScrollListener(layout) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+
+            }
+        };
+        viewTweet.addOnScrollListener(listener);
         viewTweet.setAdapter(adapt);
+
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 getTweets();
             }
         });
-
         refreshLayout.setRefreshing(true);
         getTweets();
     }
@@ -56,6 +66,8 @@ public class TimelineActivity extends Activity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 adapt.clear();
+                adapt.notifyDataSetChanged();
+                listener.resetState();
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         tweets.add(Tweet.fromJson(response.getJSONObject(i)));
@@ -70,6 +82,7 @@ public class TimelineActivity extends Activity {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.e("BirdyNetworkClient", responseString);
+                Toast.makeText(getApplicationContext(), "A network error has occurred", Toast.LENGTH_SHORT).show();
             }
         });
     }

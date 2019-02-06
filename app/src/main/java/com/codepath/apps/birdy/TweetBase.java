@@ -7,7 +7,7 @@ import com.codepath.apps.birdy.models.SampleModel;
 import com.codepath.apps.birdy.models.SampleModelDao;
 
 @Database(entities = {SampleModel.class}, version = 1)
-public abstract class MyDatabase extends RoomDatabase {
+public abstract class TweetBase extends RoomDatabase {
     // Database name to be used
     public static final String NAME = "MyDataBase";
 

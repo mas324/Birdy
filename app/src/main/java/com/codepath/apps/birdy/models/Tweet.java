@@ -1,6 +1,7 @@
 package com.codepath.apps.birdy.models;
 
 import android.text.format.DateUtils;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +49,10 @@ public class Tweet {
         format.setLenient(true);
         String timeOffset = "";
         try {
-            timeOffset = DateUtils.getRelativeTimeSpanString(format.parse(createdTime).getTime(), System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+            Log.d("BirdyDate", createdTime);
+            Log.d("BirdyDate", Long.toString(format.parse(createdTime).getTime()));
+            Log.d("BirdyDate", Long.toString(System.currentTimeMillis()));
+            timeOffset = DateUtils.getRelativeTimeSpanString(format.parse(createdTime).getTime(), System.currentTimeMillis(), DateUtils.DAY_IN_MILLIS).toString();
         } catch (ParseException e) {
             e.printStackTrace();
         }
